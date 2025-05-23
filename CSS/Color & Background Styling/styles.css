@@ -1,0 +1,27 @@
+body {
+    background-color: #f0f0f0;
+    background-image: url('cityscape.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: rgba(0, 0, 0, 0.85);
+    font-family: Arial, sans-serif;
+  }
+  
+  h2 {
+    background: linear-gradient(to right, #0066cc, #66ccff);
+    color: white;
+    padding: 10px;
+    margin-top: 30px;
+  }
+  
+  p {
+    color: #333333;
+  }
+  
+  header {
+    background-color: #003366;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+  }
+  
