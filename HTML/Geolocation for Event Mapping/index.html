@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Geolocation for Event Mapping</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 400px;
+      margin: auto;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      cursor: pointer;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #output {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #333;
+    }
+    #error {
+      color: red;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Find Nearby Events</h2>
+<button id="findEventsBtn">Find Nearby Events</button>
+
+<div id="output"></div>
+<div id="error"></div>
+
+<script>
+  const btn = document.getElementById('findEventsBtn');
+  const output = document.getElementById('output');
+  const errorDiv = document.getElementById('error');
+
+  btn.addEventListener('click', () => {
+    output.textContent = "";
+    errorDiv.textContent = "";
+
+    if (!navigator.geolocation) {
+      errorDiv.textContent = "Geolocation is not supported by your browser.";
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(success, error, {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 0
+    });
+  });
+
+  function success(position) {
+    const lat = position.coords.latitude.toFixed(6);
+    const lon = position.coords.longitude.toFixed(6);
+    output.textContent = `Your Coordinates: Latitude ${lat}, Longitude ${lon}`;
+  }
+
+  function error(err) {
+    switch(err.code) {
+      case err.PERMISSION_DENIED:
+        errorDiv.textContent = "Permission denied. Please allow location access.";
+        break;
+      case err.POSITION_UNAVAILABLE:
+        errorDiv.textContent = "Location information is unavailable.";
+        break;
+      case err.TIMEOUT:
+        errorDiv.textContent = "The request to get your location timed out.";
+        break;
+      default:
+        errorDiv.textContent = "An unknown error occurred.";
+    }
+  }
+</script>
+
+</body>
+</html>
+10.<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Debugging Practice</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .box {
+      width: 150px;
+      height: 150px;
+      background-color: coral;
+      margin-bottom: 20px;
+      transition: background-color 0.3s;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      user-select: none;
+    }
+    .box:hover {
+      background-color: lightgreen;
+      color: black;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Debugging Practice</h2>
+
+<div class="box" id="colorBox">Click me</div>
+
+<button id="logButton">Click to Log</button>
+
+<script>
+  const box = document.getElementById('colorBox');
+  const logBtn = document.getElementById('logButton');
+
+  // Function to deliberately cause an error (for debugging)
+  function causeError() {
+    nonExistentFunction(); // This function does not exist and will throw an error
+  }
+
+  logBtn.addEventListener('click', () => {
+    console.log('Button clicked!');
+    try {
+      causeError();
+    } catch (err) {
+      console.error('Caught an error:', err);
+    }
+  });
+
+  function changeBoxColor() {
+    const currentColor = box.style.backgroundColor;
+    if (currentColor === 'coral' || currentColor === '') {
+      box.style.backgroundColor = 'lightblue';
+      box.textContent = 'Light Blue';
+    } else {
+      box.style.backgroundColor = 'coral';
+      box.textContent = 'Coral';
+    }
+    console.log(`Box color changed to: ${box.style.backgroundColor}`);
+  }
+
+  box.addEventListener('click', changeBoxColor);
+</script>
+
+</body>
+</html>
