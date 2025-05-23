@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Debugging Practice</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .box {
+      width: 150px;
+      height: 150px;
+      background-color: coral;
+      margin-bottom: 20px;
+      transition: background-color 0.3s;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      user-select: none;
+    }
+    .box:hover {
+      background-color: lightgreen;
+      color: black;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Debugging Practice</h2>
+
+<div class="box" id="colorBox">Click me</div>
+
+<button id="logButton">Click to Log</button>
+
+<script>
+  const box = document.getElementById('colorBox');
+  const logBtn = document.getElementById('logButton');
+
+  function causeError() {
+    // Intentional error for debugging: calling undefined function
+    nonExistentFunction();
+  }
+
+  logBtn.addEventListener('click', () => {
+    console.log('Button clicked!');
+    try {
+      causeError();
+    } catch (err) {
+      console.error('Caught an error:', err);
+    }
+  });
+
+  function changeBoxColor() {
+    const currentColor = box.style.backgroundColor;
+    if (currentColor === 'coral' || currentColor === '') {
+      box.style.backgroundColor = 'lightblue';
+      box.textContent = 'Light Blue';
+    } else {
+      box.style.backgroundColor = 'coral';
+      box.textContent = 'Coral';
+    }
+    console.log(`Box color changed to: ${box.style.backgroundColor}`);
+  }
+
+  box.addEventListener('click', changeBoxColor);
+</script>
+
+</body>
+</html>
