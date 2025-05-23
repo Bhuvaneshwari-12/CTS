@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Video Invite with Media Events</title>
+  <style>
+    #videoStatus {
+      font-weight: bold;
+      color: green;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Event Promo Video</h2>
+
+<video id="promoVideo" width="480" controls oncanplay="videoReady()">
+  <source src="promo.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+
+<p id="videoStatus"></p>
+
+<form id="eventForm">
+  <label for="name">Name:</label>
+  <input type="text" id="name" required placeholder="Enter your name" />
+  <br/><br/>
+  <label for="email">Email:</label>
+  <input type="email" id="email" required placeholder="Enter your email" />
+  <br/><br/>
+  <button type="submit">Register</button>
+</form>
+
+<script>
+  let formIsDirty = false;
+
+  document.getElementById('eventForm').addEventListener('input', () => {
+    formIsDirty = true;
+  });
+
+  window.onbeforeunload = function(e) {
+    if (formIsDirty) {
+      return "You have unsaved changes. Are you sure you want to leave?";
+    }
+  };
+
+  document.getElementById('eventForm').addEventListener('submit', function(e) {
+    formIsDirty = false;
+    alert('Form submitted successfully!');
+  });
+
+  function videoReady() {
+    document.getElementById('videoStatus').textContent = "Video ready to play";
+  }
+</script>
+
+</body>
+</html>
